@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ساخت فایل · Purple Tool</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0f081a;
+    --card: rgba(20, 10, 40, 0.92);
+    --accent: #8B5CF6;
+    --accent2: #A78BFA;
+    --text: #F0E8FF;
+    --dim: #6D4A9E;
+    --mid: #9C8ABF;
+    --border: rgba(139, 92, 246, 0.25);
+    --green: #10B981;
+    --green-bg: rgba(16, 185, 129, 0.1);
+    --red: #EF4444;
+    --red-bg: rgba(239, 68, 68, 0.1);
+  }
+  html, body { height: 100%; }
+  body {
+    font-family: 'Vazirmatn', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 24px 16px;
+    position: relative;
+    overflow-x: hidden;
+  }
+  .bg { position: fixed; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(139,92,246,0.15), transparent 70%), var(--bg); z-index: 0; }
+  .grid { position: fixed; inset: 0; background-image: linear-gradient(rgba(139,92,246,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(139,92,246,0.05) 1px, transparent 1px); background-size: 44px 44px; z-index: 0; }
+  .orb { position: fixed; border-radius: 50%; filter: blur(90px); z-index: 0; animation: float 9s ease-in-out infinite; }
+  .o1 { width: 380px; height: 380px; background: rgba(139,92,246,0.08); top: -100px; right: -80px; }
+  .o2 { width: 280px; height: 280px; background: rgba(139,92,246,0.04); bottom: -60px; left: -60px; animation-delay: 4s; }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-18px); } }
+
+  .wrap { position: relative; z-index: 10; max-width: 720px; margin: 0 auto; }
+
+  .header { text-align: center; margin-bottom: 24px; }
+  .logo {
+    width: 64px; height: 64px; border-radius: 18px;
+    background: linear-gradient(135deg, #8B5CF6, #6D28D9);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 16px; font-size: 28px;
+    box-shadow: 0 8px 28px rgba(139,92,246,0.45);
+    animation: breathe 3s ease-in-out infinite;
+  }
+  @keyframes breathe {
+    0%,100% { transform: scale(1); box-shadow: 0 8px 28px rgba(139,92,246,0.45); }
+    50% { transform: scale(1.04); box-shadow: 0 12px 36px rgba(139,92,246,0.6); }
+  }
+  h1 {
+    font-size: 22px; font-weight: 800; margin-bottom: 6px;
+    background: linear-gradient(135deg, #F0E8FF, #A78BFA);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .sub { font-size: 12.5px; color: var(--mid); }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 24px;
+    backdrop-filter: blur(24px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+
+  .field { margin-bottom: 18px; }
+  .field label {
+    display: block; font-size: 11px; font-weight: 700;
+    color: var(--mid); margin-bottom: 8px;
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .row { display: flex; gap: 10px; }
+  .row .field { flex: 1; margin-bottom: 0; }
+
+  input, select, textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 11px;
+    border: 1px solid var(--border);
+    background: rgba(0,0,0,0.25);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 13.5px;
+    outline: none;
+    transition: 0.18s;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: rgba(139,92,246,0.6);
+    box-shadow: 0 0 0 3px rgba(139,92,246,0.12);
+    background: rgba(0,0,0,0.35);
+  }
+  input::placeholder, textarea::placeholder { color: var(--dim); }
+  select { cursor: pointer; }
+  select option { background: #1a0e30; color: var(--text); }
+
+  textarea {
+    min-height: 240px;
+    resize: vertical;
+    font-family: ui-monospace, 'Courier New', monospace;
+    font-size: 12.5px;
+    line-height: 1.7;
+    direction: ltr;
+    text-align: left;
+  }
+
+  .actions { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+  .btn {
+    flex: 1; min-width: 140px;
+    padding: 13px 20px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #8B5CF6, #6D28D9);
+    color: #fff;
+    box-shadow: 0 4px 20px rgba(139,92,246,0.4);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(139,92,246,0.55); }
+  .btn-primary:active { transform: translateY(0) scale(0.98); }
+  .btn-secondary {
+    background: rgba(139,92,246,0.12);
+    color: var(--accent2);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover { background: rgba(139,92,246,0.2); }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .toast {
+    position: fixed; bottom: 24px; left: 50%;
+    transform: translateX(-50%) translateY(40px);
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 12px;
+    padding: 12px 22px;
+    font-size: 13px; font-weight: 600;
+    opacity: 0;
+    transition: all 0.25s;
+    z-index: 999;
+    pointer-events: none;
+    display: flex; align-items: center; gap: 8px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+    white-space: nowrap;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .toast.ok { border-color: rgba(16,185,129,0.4); background: var(--green-bg); color: #34D399; }
+  .toast.err { border-color: rgba(239,68,68,0.4); background: var(--red-bg); color: #F87171; }
+
+  .hint {
+    display: flex; align-items: flex-start; gap: 8px;
+    background: rgba(139,92,246,0.08);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 11px; color: var(--mid);
+    line-height: 1.7;
+    margin-top: 14px;
+  }
+  .hint i { color: var(--accent); font-size: 14px; }
+
+  .preview-info {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 11.5px; color: var(--dim);
+    margin-top: 10px;
+    font-family: ui-monospace, monospace;
+  }
+  .preview-info span { color: var(--accent2); font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="grid"></div>
+<div class="orb o1"></div>
+<div class="orb o2"></div>
+<div class="toast" id="toast"></div>
+
+<div class="wrap">
+  <div class="header">
+    <div class="logo">📄</div>
+    <h1>ساخت فایل سفارشی</h1>
+    <p class="sub">نام، فرمت و محتوا را مشخص کن، فایل را دانلود کن</p>
+  </div>
+
+  <div class="card">
+    <div class="row" style="margin-bottom:18px">
+      <div class="field">
+        <label>نام فایل</label>
+        <input type="text" id="filename" placeholder="مثلاً: my-config" autocomplete="off">
+      </div>
+      <div class="field" style="max-width:180px">
+        <label>فرمت / پسوند</label>
+        <select id="extension">
+          <option value="txt">txt</option>
+          <option value="json">json</option>
+          <option value="html">html</option>
+          <option value="css">css</option>
+          <option value="js">js</option>
+          <option value="py">py</option>
+          <option value="md">md</option>
+          <option value="xml">xml</option>
+          <option value="yaml">yaml</option>
+          <option value="yml">yml</option>
+          <option value="csv">csv</option>
+          <option value="log">log</option>
+          <option value="sh">sh</option>
+          <option value="conf">conf</option>
+          <option value="env">env</option>
+          <option value="__custom__">دیگر (دستی)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field" id="custom-ext-field" style="display:none">
+      <label>پسوند سفارشی (بدون نقطه)</label>
+      <input type="text" id="custom-ext" placeholder="مثلاً: vless یا bak" autocomplete="off">
+    </div>
+
+    <div class="field">
+      <label>محتوای فایل</label>
+      <textarea id="content" placeholder="محتوای مورد نظر را اینجا بنویسید..."></textarea>
+      <div class="preview-info">
+        نام نهایی: <span id="final-name">—</span>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-primary" onclick="downloadFile()">
+        ⬇️ ساخت و دانلود فایل
+      </button>
+      <button class="btn btn-secondary" onclick="clearAll()">
+        🗑️ پاک کردن
+      </button>
+    </div>
+
+    <div class="hint">
+      <i>💡</i>
+      <span>
+        اگر روی «دیگر (دستی)» کلیک کنی، می‌توانی هر پسوندی که می‌خواهی وارد کنی.
+        فایل به صورت UTF-8 ذخیره می‌شود و با نام و پسوند انتخاب‌شده دانلود می‌گردد.
+      </span>
+    </div>
+  </div>
+</div>
+
+<script>
+  const filenameInput = document.getElementById('filename');
+  const extensionSelect = document.getElementById('extension');
+  const customExtField = document.getElementById('custom-ext-field');
+  const customExtInput = document.getElementById('custom-ext');
+  const contentInput = document.getElementById('content');
+  const finalNameEl = document.getElementById('final-name');
+
+  // به‌روزرسانی پیش‌نمایش نام فایل
+  function updateFinalName() {
+    const name = (filenameInput.value || '').trim();
+    let ext = extensionSelect.value;
+    if (ext === '__custom__') {
+      ext = (customExtInput.value || '').trim().replace(/^\./, '');
+    }
+    if (!name) {
+      finalNameEl.textContent = '—';
+      return;
+    }
+    finalNameEl.textContent = ext ? `${name}.${ext}` : name;
+  }
+
+  filenameInput.addEventListener('input', updateFinalName);
+  extensionSelect.addEventListener('change', () => {
+    if (extensionSelect.value === '__custom__') {
+      customExtField.style.display = 'block';
+      customExtInput.focus();
+    } else {
+      customExtField.style.display = 'none';
+      customExtInput.value = '';
+    }
+    updateFinalName();
+  });
+  customExtInput.addEventListener('input', updateFinalName);
+
+  // نمایش توست
+  function toast(msg, type = '') {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast show' + (type ? ' ' + type : '');
+    setTimeout(() => t.classList.remove('show'), 2600);
+  }
+
+  // دانلود فایل
+  function downloadFile() {
+    const name = (filenameInput.value || '').trim();
+    if (!name) {
+      toast('لطفاً نام فایل را وارد کنید', 'err');
+      filenameInput.focus();
+      return;
+    }
+
+    let ext = extensionSelect.value;
+    if (ext === '__custom__') {
+      ext = (customExtInput.value || '').trim().replace(/^\./, '');
+      if (!ext) {
+        toast('لطفاً پسوند سفارشی را وارد کنید', 'err');
+        customExtInput.focus();
+        return;
+      }
+    }
+
+    const fullName = ext ? `${name}.${ext}` : name;
+    const content = contentInput.value;
+
+    // تعیین نوع MIME بر اساس پسوند
+    const mimeMap = {
+      txt: 'text/plain',
+      json: 'application/json',
+      html: 'text/html',
+      htm: 'text/html',
+      css: 'text/css',
+      js: 'application/javascript',
+      py: 'text/x-python',
+      md: 'text/markdown',
+      xml: 'application/xml',
+      yaml: 'text/yaml',
+      yml: 'text/yaml',
+      csv: 'text/csv',
+      log: 'text/plain',
+      sh: 'application/x-sh',
+      conf: 'text/plain',
+      env: 'text/plain'
+    };
+    const mime = mimeMap[ext] || 'text/plain';
+
+    // استفاده از Blob و URL.createObjectURL
+    const blob = new Blob([content], { type: `${mime};charset=utf-8` });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fullName;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    // آزادسازی حافظه
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+    toast(`✅ فایل «${fullName}» دانلود شد`, 'ok');
+  }
+
+  // پاک کردن همه فیلدها
+  function clearAll() {
+    filenameInput.value = '';
+    contentInput.value = '';
+    extensionSelect.value = 'txt';
+    customExtInput.value = '';
+    customExtField.style.display = 'none';
+    updateFinalName();
+    filenameInput.focus();
+    toast('فیلدها پاک شدند');
+  }
+
+  // مقدار اولیه
+  updateFinalName();
+</script>
+</body>
+</html>
