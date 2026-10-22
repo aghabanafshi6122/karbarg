@@ -1,0 +1,182 @@
+<div align="center">
+
+<img src="https://raw.githubusercontent.com/aghabanafshi6122/karbarg/refs/heads/main/main-content/content.svg" alt="لوگوی پنل پرپل" width="150"/>
+
+# 🟣 پنل پرپل | Purple Panel
+
+**پنل مدیریتی ساخت کانفیگ پرسرعت V2ray**
+
+با یک داشبورد ساده و زیبا، کانفیگ‌های V2ray خودت رو بساز و مدیریت کن!
+
+[![GitHub](https://img.shields.io/badge/GitHub-aghabanafshi6122-181717?style=for-the-badge&logo=github)](https://github.com/aghabanafshi6122/myprojectt)
+[![Railway](https://img.shields.io/badge/Deploy-Railway-0B0D0E?style=for-the-badge&logo=railway)](https://railway.app)
+[![Python](https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python)](https://python.org)
+
+**🌐 [English Version | نسخه انگلیسی](./README.md)**
+
+</div>
+
+---
+
+## ✨ معرفی
+
+**پنل پرپل** یک پنل مدیریتی سبک و کاربرپسند برای ساخت و مدیریت کانفیگ‌های **V2ray** است. با استفاده از این پروژه می‌توانید تنها با چند کلیک، پنل شخصی خود را روی [Railway](https://railway.app) راه‌اندازی کنید و از داشبورد مدیریتی آن لذت ببرید.
+
+> 💡 نیازی به دانش برنامه‌نویسی ندارید — فقط مراحل زیر را قدم به قدم دنبال کنید!
+
+---
+
+## 🧩 ویژگی‌ها
+
+- ✅ رابط کاربری ساده و زیبا
+- ✅ ساخت و مدیریت کانفیگ‌های V2ray
+- ✅ پشتیبانی از VLESS
+- ✅ ربات تلگرام
+- ✅ مدیریت محدودیت سرعت
+- ✅ نصب آسان روی Railway
+- ✅ پایداری تنظیمات با Volume
+- ✅ چک‌های سلامت و عیب‌یابی
+
+---
+
+## 🚀 راه‌اندازی سریع (Deploy در ۵ دقیقه)
+
+### 📌 قدم اول — ثبت‌نام در GitHub
+
+اگر هنوز حساب کاربری ندارید، در سایت [github.com](https://github.com) با ایمیل خود ثبت‌نام کنید.
+
+### 📌 قدم دوم — ثبت‌نام در Railway
+
+به سایت [railway.app](https://railway.app) بروید و با همان اکانت GitHub ثبت‌نام کنید.
+
+### 📌 قدم سوم — Deploy پروژه
+
+۱. در صفحه اصلی Railway روی گزینه **Deploy** کلیک کنید.
+۲. گزینه **Github Repository** را انتخاب کنید.
+۳. روی **Install Github App** بزنید.
+۴. در پنجره باز شده، دسترسی **All Repository** را بدهید و روی **Install & Authorize** کلیک کنید.
+۵. به صفحه اصلی Railway برگردید و دوباره مسیر **Deploy → Github Repository** را طی کنید.
+۶. در کادر بالا، آدرس زیر را وارد کنید:
+
+```
+github.com/aghabanafshi6122/myprojectt
+```
+
+۷. روی **Deploy Repo** کلیک کنید تا پنل نصب شود.
+
+### 📌 قدم چهارم — تنظیم دامنه
+
+۱. روی آیکون پروژه کلیک کنید.
+۲. روی دکمه **Settings** بزنید.
+۳. روی دکمه **Generate Domain** کلیک کنید.
+۴. اگر شماره‌ای خواست، عدد **8080** را وارد کنید.
+
+پس از این مرحله، لینکی به شما داده می‌شود، مثلاً:
+
+```
+https://myprojectt-production-a45r.up.railway.app/
+```
+
+> ⚠️ **توجه:** ابتدا باید پنل به حالت **Online** برود، سپس وارد شوید.
+
+### 📌 قدم پنجم — ورود به پنل
+
+در انتهای آدرس، عبارت `/login` را اضافه کنید:
+
+```
+https://myprojectt-production-a45r.up.railway.app/login
+```
+
+سپس **رمز پیش‌فرض** را وارد کنید (از متغیرهای محیطی یا لاگ‌ها ببینید).
+
+🎉 **تبریک!** شما الان یک پنل شخصی ساخت کانفیگ دارید.
+
+---
+
+## 💾 ذخیره تنظیمات (پیشنهادی)
+
+اگر می‌خواهید بعد از آپدیت‌های پنل، کانفیگ‌های شما **ذخیره بمانند** و کار کنند، مراحل زیر را انجام دهید:
+
+۱. روی پروژه در Railway **کلیک راست** کنید.
+۲. روی گزینه **Attach Volume** کلیک کنید.
+۳. در کادر بالا عبارت `/data` را وارد کنید.
+۴. کلید **Enter** را بزنید و صبر کنید تا فرآیند Deploy تمام شود.
+
+✅ از این به بعد تنظیمات شما پایدار خواهند ماند!
+
+---
+
+## 📁 ساختار پروژه
+
+| فایل | توضیحات |
+|------|---------|
+| `Dockerfile` | پیکربندی ساخت کانتینر |
+| `doctor.py` | ماژول سلامت و عیب‌یابی |
+| `jinx_api.py` | ماژول API بک‌اند |
+| `jinx.js` / `jinx.css` | فایل‌های فرانت‌اند |
+| `lock.py` | کنترل دسترسی و نشست |
+| `ensure_admin.py` | ابزار تنظیم ادمین |
+| `start.sh` | اسکریپت شروع |
+| `nginx.conf` | پیکربندی پروکسی معکوس |
+| `railway.json` | پیکربندی استقرار Railway |
+| `variables.env` | متغیرهای محیطی (نمونه) |
+| `donate.html` / `donate-config.js` | صفحات و تنظیمات دونیت |
+| `download` | فایل‌های صفحه دانلود |
+| `sub.html` | قالب صفحه اشتراک |
+| `enforce_hosts.py` | ماژول اعتبارسنجی هاست |
+| `ws.inc` / `gate.inc` | قالب‌های پارشال |
+| `xray_config.json` | فایل پیکربندی برنامه |
+| `locked_inbound.json` | فایل تنظیمات قفل‌شده |
+| `iran-relay.sh` | اسکریپت راه‌اندازی نود |
+
+---
+
+## ⚙️ متغیرهای محیطی
+
+| متغیر | توضیحات | پیش‌فرض |
+|-------|---------|---------|
+| `PORT` | پورت اجرای برنامه | `8080` |
+| `PASSWORD` | رمز ورود به داشبورد | *(از لاگ‌ها ببینید)* |
+| `DATA_DIR` | مسیر داده‌های پایدار | `/data` |
+
+---
+
+## 🖼️ تصاویر
+
+برای مشاهده تصاویر پروژه، فایل [`screenshots.md`](./screenshots.md) را بررسی کنید.
+
+---
+
+## 🛠️ فناوری‌ها
+
+- 🐍 **Python 3.x**
+- 🌐 **HTML / CSS / JavaScript**
+- 🐳 **Docker**
+- ☁️ **Railway**
+- 🤖 **Telegram Bot API**
+
+---
+
+## 🤝 مشارکت
+
+اگر ایده، پیشنهاد یا باگی دارید، خوشحال می‌شویم در [بخش Issues](https://github.com/aghabanafshi6122/myprojectt/issues) مطرح کنید.
+
+---
+
+## 📄 لایسنس
+
+این پروژه برای استفاده شخصی منتشر شده است. لطفاً به نویسنده اصلی احترام بگذارید.
+
+---
+
+<div align="center">
+
+<img src="https://raw.githubusercontent.com/aghabanafshi6122/karbarg/refs/heads/main/main-content/content.svg" alt="لوگوی پنل پرپل" width="80"/>
+
+**⭐ اگر این پروژه برایتان مفید بود، یک ستاره به آن بدهید!**
+
+ساخته شده با 💜 توسط [aghabanafshi6122](https://github.com/aghabanafshi6122)
+
+**🌐 [English Version | نسخه انگلیسی](./README.md)**
+
+</div>
