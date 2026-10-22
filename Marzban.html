@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مرزبان روی Railway | Marzban on Railway</title>
+    <meta name="description" content="دیپلوی پنل Marzban روی Railway در ۵ دقیقه — Deploy Marzban Panel on Railway in 5 Minutes">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="مرزبان روی Railway | Marzban on Railway">
+    <meta property="og:description" content="دیپلوی یک‌کلیکی پنل Marzban روی Railway — بدون نیاز به سرور دستی">
+    <meta property="og:image" content="https://raw.githubusercontent.com/aghabanafshi6122/karbarg/refs/heads/main/main-content/content.svg">
+    <meta property="og:type" content="website">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="https://raw.githubusercontent.com/aghabanafshi6122/karbarg/refs/heads/main/main-content/content.svg">
+
+    <style>
+        :root {
+            --purple: #a855f7;
+            --purple-light: #c084fc;
+            --purple-dark: #7c3aed;
+            --bg-dark: #0f0a1a;
+            --bg-card: rgba(255, 255, 255, 0.04);
+            --border: rgba(168, 85, 247, 0.25);
+            --text: #f4f4f5;
+            --text-dim: #a1a1aa;
+            --green: #22c55e;
+            --yellow: #eab308;
+            --red: #ef4444;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, system-ui, -apple-system, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(circle at 20% 10%, rgba(168, 85, 247, 0.15), transparent 40%),
+                radial-gradient(circle at 80% 90%, rgba(124, 58, 237, 0.15), transparent 40%);
+            z-index: -2;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(168, 85, 247, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(168, 85, 247, 0.04) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+        }
+
+        header {
+            padding: 60px 20px 40px;
+            text-align: center;
+        }
+
+        .logo {
+            width: 130px;
+            height: auto;
+            margin-bottom: 25px;
+            filter: drop-shadow(0 0 25px rgba(168, 85, 247, 0.5));
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            background: linear-gradient(135deg, var(--purple-light), var(--purple), #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            color: var(--text-dim);
+            font-size: 1.1rem;
+            max-width: 620px;
+            margin: 0 auto 30px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 13px 26px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+            color: #fff;
+            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.35);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(168, 85, 247, 0.55);
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text);
+            border-color: var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--purple);
+            background: rgba(168, 85, 247, 0.1);
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px 20px 80px;
+        }
+
+        section { margin-bottom: 60px; }
+
+        h2 {
+            font-size: 1.6rem;
+            color: var(--purple-light);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h2::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: linear-gradient(var(--purple), var(--purple-dark));
+            border-radius: 4px;
+        }
+
+        h3 {
+            color: var(--text);
+            font-size: 1.15rem;
+            margin: 24px 0 10px;
+        }
+
+        p {
+            color: var(--text-dim);
+            margin-bottom: 14px;
+        }
+
+        a { color: var(--purple-light); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 18px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(8px);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--purple);
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.2);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .card h3 {
+            color: var(--text);
+            font-size: 1.05rem;
+            margin: 0 0 8px;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            margin: 16px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            padding: 13px 16px;
+            text-align: right;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.12);
+        }
+
+        th {
+            background: rgba(168, 85, 247, 0.1);
+            color: var(--purple-light);
+            font-weight: 700;
+        }
+
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: rgba(168, 85, 247, 0.05); }
+
+        code {
+            background: rgba(168, 85, 247, 0.15);
+            color: var(--purple-light);
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            direction: ltr;
+            display: inline-block;
+        }
+
+        .code-block {
+            background: #0a0612;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin: 16px 0;
+            overflow-x: auto;
+            direction: ltr;
+            text-align: left;
+            position: relative;
+        }
+
+        .code-block code {
+            background: none;
+            color: #e9d5ff;
+            padding: 0;
+            font-size: 0.9rem;
+            display: block;
+            white-space: pre;
+        }
+
+        .steps {
+            list-style: none;
+            counter-reset: step;
+        }
+
+        .steps li {
+            counter-increment: step;
+            position: relative;
+            padding-right: 55px;
+            margin-bottom: 22px;
+            color: var(--text-dim);
+        }
+
+        .steps li::before {
+            content: counter(step);
+            position: absolute;
+            right: 0;
+            top: -2px;
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.35);
+        }
+
+        .steps li strong {
+            color: var(--text);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .alert {
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin: 16px 0;
+            border: 1px solid;
+            font-size: 0.92rem;
+        }
+
+        .alert-warning {
+            background: rgba(234, 179, 8, 0.08);
+            border-color: rgba(234, 179, 8, 0.3);
+            color: #fde68a;
+        }
+
+        .alert-success {
+            background: rgba(34, 197, 94, 0.08);
+            border-color: rgba(34, 197, 94, 0.3);
+            color: #86efac;
+        }
+
+        .alert-info {
+            background: rgba(168, 85, 247, 0.08);
+            border-color: rgba(168, 85, 247, 0.3);
+            color: #e9d5ff;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-right: 6px;
+        }
+
+        .badge-green { background: rgba(34, 197, 94, 0.2); color: #86efac; }
+        .badge-yellow { background: rgba(234, 179, 8, 0.2); color: #fde68a; }
+        .badge-red { background: rgba(239, 68, 68, 0.2); color: #fca5a5; }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid var(--border);
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        footer img {
+            width: 60px;
+            margin-bottom: 15px;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        footer img:hover { opacity: 1; }
+
+        footer a {
+            color: var(--purple-light);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer a:hover { text-decoration: underline; }
+
+        @media (max-width: 600px) {
+            header { padding: 40px 16px 30px; }
+            .logo { width: 100px; }
+            .btn { padding: 11px 20px; font-size: 0.85rem; }
+            th, td { padding: 10px 12px; font-size: 0.82rem; }
+            .steps li { padding-right: 48px; }
+        }
+
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--purple), var(--purple-dark));
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="https://raw.githubusercontent.com/aghabanafshi6122/karbarg/refs/heads/main/main-content/content.svg"
+             alt="Marzban Logo" class="logo">
+        <h1>مرزبان روی Railway</h1>
+        <p class="subtitle">
+            دیپلوی یک‌کلیکی پنل <strong>Marzban</strong> روی <strong>Railway</strong> در ۵ دقیقه —
+            بدون نیاز به سرور دستی، بدون تنظیم SSL، بدون دردسر!
+        </p>
+        <div class="actions">
+            <a href="https://github.com/aghabanafshi6122/myprojectt" class="btn btn-primary" target="_blank" rel="noopener">
+                🐙 مشاهده در GitHub
+            </a>
+            <a href="https://railway.app/new/template?template=https://github.com/aghabanafshi6122/myprojectt" class="btn btn-primary" target="_blank" rel="noopener">
+                🚀 Deploy روی Railway
+            </a>
+            <a href="./README-FA.md" class="btn btn-secondary">
+                📖 مستندات فارسی
+            </a>
+            <a href="./README.md" class="btn btn-secondary">
+                📘 English Docs
+            </a>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- معرفی -->
+        <section>
+            <h2>✨ این پروژه چیست؟</h2>
+            <p>
+                این ریپو یک <strong>پیکربندی آماده برای دیپلوی</strong>
+                <a href="https://github.com/Gozargah/Marzban" target="_blank" rel="noopener">Marzban</a>
+                روی <a href="https://railway.app" target="_blank" rel="noopener">Railway</a> است.
+            </p>
+            <p>
+                به‌جای کپی کردن کل سورس Marzban، فایل <code>Dockerfile</code> در زمان build سورس
+                <strong>رسمی Marzban</strong> را از GitHub می‌کشد، Xray-core را نصب می‌کند، داشبورد را می‌سازد
+                و یک ایمیج تمیز تحویل می‌دهد.
+            </p>
+
+            <h3>💡 چرا این روش؟</h3>
+            <div class="grid">
+                <div class="card">
+                    <span class="card-icon">🔄</span>
+                    <h3>همیشه به‌روز</h3>
+                    <p>آخرین نسخه Marzban یا نسخه دلخواه با <code>MARZBAN_REF</code></p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">📦</span>
+                    <h3>حجم کم</h3>
+                    <p>فقط چند فایل دیپلوی، بدون کپی سورس</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">⚡</span>
+                    <h3>دیپلوی یک‌کلیکی</h3>
+                    <p>فقط Fork کن و Deploy بزن</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">🔌</span>
+                    <h3>سازگار با Railway</h3>
+                    <p>پشتیبانی از <code>$PORT</code> و TLS خودکار</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">🐘</span>
+                    <h3>PostgreSQL اختیاری</h3>
+                    <p>استفاده از دیتابیس Railway برای پایداری</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">🆓</span>
+                    <h3>رایگان برای شروع</h3>
+                    <p>با پلن رایگان Railway شروع کن</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- راه‌اندازی -->
+        <section>
+            <h2>🚀 راه‌اندازی سریع (۵ دقیقه)</h2>
+            <ol class="steps">
+                <li>
+                    <strong>Fork کردن ریپو</strong>
+                    روی GitHub دکمه <strong>Fork</strong> را بزنید تا ریپو به اکانت خودتان منتقل شود.
+                </li>
+                <li>
+                    <strong>دیپلوی روی Railway</strong>
+                    به <a href="https://railway.app" target="_blank" rel="noopener">railway.app</a> بروید →
+                    <strong>New Project</strong> → <strong>Deploy from GitHub Repo</strong> →
+                    ریپوی Fork شده را انتخاب کنید. Railway به‌طور خودکار ساخت ایمیج را شروع می‌کند.
+                </li>
+                <li>
+                    <strong>ساخت ادمین (پیشنهادی)</strong>
+                    در تب <strong>Variables</strong> پروژه Railway این دو متغیر را اضافه کنید:
+                    <div class="code-block"><code>SUDO_USERNAME=admin
+SUDO_PASSWORD=YourStrongPass123!</code></div>
+                </li>
+                <li>
+                    <strong>(اختیاری) فعال‌سازی PostgreSQL</strong>
+                    پلاگین <strong>Postgres</strong> را در Railway اضافه کنید و آدرس اتصال را به‌عنوان متغیر تنظیم کنید:
+                    <div class="code-block"><code>SQLALCHEMY_DATABASE_URL=postgresql://user:pass@host:port/dbname</code></div>
+                </li>
+                <li>
+                    <strong>ورود به پنل</strong>
+                    بعد از اتمام Build (حدود ۳ تا ۵ دقیقه)، دامنه Railway را باز کنید:
+                    <div class="code-block"><code>https://your-app.up.railway.app/dashboard/</code></div>
+                    با <code>SUDO_USERNAME</code> و <code>SUDO_PASSWORD</code> وارد شوید.
+                </li>
+            </ol>
+
+            <div class="alert alert-success">
+                🎉 <strong>تبریک!</strong> پنل Marzban شما روی Railway آماده است.
+            </div>
+        </section>
+
+        <!-- هشدارها -->
+        <section>
+            <h2>⚠️ نکات مهم</h2>
+
+            <div class="alert alert-warning">
+                <strong>🔐 TLS:</strong> خود Railway لایه TLS را مدیریت می‌کند. نیازی به تنظیم گواهی SSL داخل کانتینر نیست.
+            </div>
+
+            <div class="alert alert-warning">
+                <strong>💾 پایداری داده:</strong> فایل‌سیستم Railway موقتی است. برای استفاده جدی از <strong>PostgreSQL</strong> و در صورت نیاز <strong>Volume</strong> استفاده کنید.
+            </div>
+
+            <div class="alert alert-info">
+                <strong>📌 نسخه Marzban:</strong> با تغییر <code>MARZBAN_REF</code> در <code>railway.json</code> می‌توانید نسخه خاصی را پین کنید (مثلاً <code>v0.8.0</code>).
+            </div>
+
+            <div class="alert alert-info">
+                <strong>🔌 پورت:</strong> Railway خودش <code>$PORT</code> را تزریق می‌کند. آن را دستی تنظیم نکنید.
+            </div>
+        </section>
+
+        <!-- متغیرهای محیطی -->
+        <section>
+            <h2>⚙️ متغیرهای محیطی</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>متغیر</th>
+                            <th>توضیحات</th>
+                            <th>پیش‌فرض</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>PORT</code></td><td>توسط Railway تزریق می‌شود</td><td>—</td></tr>
+                        <tr><td><code>SUDO_USERNAME</code></td><td>نام کاربری ادمین</td><td>—</td></tr>
+                        <tr><td><code>SUDO_PASSWORD</code></td><td>رمز ادمین</td><td>—</td></tr>
+                        <tr><td><code>SQLALCHEMY_DATABASE_URL</code></td><td>آدرس اتصال دیتابیس</td><td><code>sqlite:///db.sqlite3</code></td></tr>
+                        <tr><td><code>MARZBAN_REF</code></td><td>نسخه Marzban برای build</td><td><code>master</code></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ساختار ریپو -->
+        <section>
+            <h2>📁 ساختار ریپو</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>فایل</th>
+                            <th>کاربرد</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>Dockerfile</code></td><td>ساخت Marzban از سورس رسمی</td></tr>
+                        <tr><td><code>railway.json</code></td><td>پیکربندی دیپلوی Railway</td></tr>
+                        <tr><td><code>start.sh</code></td><td>اسکریپت شروع</td></tr>
+                        <tr><td><code>nginx.conf</code></td><td>پیکربندی پروکسی معکوس</td></tr>
+                        <tr><td><code>xray_config.json</code></td><td>پیکربندی Xray core</td></tr>
+                        <tr><td><code>variables.env</code></td><td>نمونه متغیرهای محیطی</td></tr>
+                        <tr><td><code>iran-relay.sh</code></td><td>راه‌اندازی نود کمکی</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- دستورات مفید -->
+        <section>
+            <h2>🔧 دستورات مفید (Railway Console)</h2>
+            <p>در تب <strong>Console</strong> سرویس Railway می‌توانید این دستورات را بزنید:</p>
+
+            <div class="code-block"><code># ساخت ادمین به‌صورت دستی
+marzban-cli admin create --sudo
+
+# مشاهده لاگ‌ها
+marzban logs
+
+# ری‌استارت پنل
+marzban restart</code></div>
+        </section>
+
+        <!-- فناوری‌ها -->
+        <section>
+            <h2>🛠️ فناوری‌ها</h2>
+            <div class="grid">
+                <div class="card">
+                    <span class="card-icon">🐍</span>
+                    <h3>Python</h3>
+                    <p>بک‌اند Marzban</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">⚛️</span>
+                    <h3>React</h3>
+                    <p>داشبورد Marzban</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">🐳</span>
+                    <h3>Docker</h3>
+                    <p>ساخت و اجرا</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">☁️</span>
+                    <h3>Railway</h3>
+                    <p>میزبانی ابری</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">🔌</span>
+                    <h3>Xray-core</h3>
+                    <p>موتور پروکسی</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- مشارکت -->
+        <section>
+            <h2>🤝 مشارکت</h2>
+            <p>
+                اگر ایده، پیشنهاد یا باگی دارید، در
+                <a href="https://github.com/aghabanafshi6122/myprojectt/issues" target="_blank" rel="noopener">بخش Issues</a>
+                مطرح کنید.
+            </p>
+        </section>
+
+    </main>
+
+    <footer>
+        <img src="https://raw.githubusercontent.com/aghabanafshi6122/karbarg/refs/heads/main/main-content/content.svg"
+             alt="Marzban Logo">
+        <p>⭐ اگر این پروژه به دیپلوی Marzban روی Railway کمک کرد، یک ستاره بدهید!</p>
+        <p style="margin-top: 10px;">
+            ساخته شده با 💜 توسط
+            <a href="https://github.com/aghabanafshi6122" target="_blank" rel="noopener">aghabanafshi6122</a>
+        </p>
+        <p style="margin-top: 10px; font-size: 0.85rem;">
+            <a href="./README-FA.md">📖 مستندات فارسی</a>
+            &nbsp;·&nbsp;
+            <a href="./README.md">📘 English Docs</a>
+            &nbsp;·&nbsp;
+            <a href="https://github.com/aghabanafshi6122/myprojectt" target="_blank" rel="noopener">🐙 GitHub</a>
+        </p>
+    </footer>
+
+</body>
+</html>
