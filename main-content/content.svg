@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 160" role="img" aria-labelledby="t d">
+<title id="t">Purple Logo</title>
+<desc id="d">Purple wordmark with a letter P inside a circle logo.</desc>
+
+<defs>
+  <!-- پس‌زمینه -->
+  <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#0a0418"/>
+    <stop offset="100%" stop-color="#1a0a30"/>
+  </linearGradient>
+
+  <!-- متن -->
+  <linearGradient id="textGrad" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0%" stop-color="#d8b4fe"/>
+    <stop offset="50%" stop-color="#a855f7"/>
+    <stop offset="100%" stop-color="#c084fc"/>
+  </linearGradient>
+
+  <!-- دایره لوگو -->
+  <linearGradient id="circleGrad" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#c084fc"/>
+    <stop offset="50%" stop-color="#a855f7"/>
+    <stop offset="100%" stop-color="#6b21a8"/>
+  </linearGradient>
+
+  <!-- درخشش -->
+  <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+    <feGaussianBlur stdDeviation="6" result="b"/>
+    <feMerge>
+      <feMergeNode in="b"/>
+      <feMergeNode in="SourceGraphic"/>
+    </feMerge>
+  </filter>
+</defs>
+
+<!-- پس‌زمینه -->
+<rect width="480" height="160" rx="24" fill="url(#bgGrad)"/>
+
+<!-- لوگو: حرف P داخل دایره -->
+<g transform="translate(70 80)" filter="url(#glow)">
+  <!-- دایره بیرونی -->
+  <circle cx="0" cy="0" r="46" fill="none" stroke="url(#circleGrad)" stroke-width="5"/>
+  <!-- دایره داخلی کم‌رنگ -->
+  <circle cx="0" cy="0" r="46" fill="url(#circleGrad)" opacity="0.15"/>
+  <!-- حرف P -->
+  <text x="0" y="18"
+        text-anchor="middle"
+        fill="url(#circleGrad)"
+        font-family="Arial, Helvetica, sans-serif"
+        font-size="58"
+        font-weight="900">P</text>
+</g>
+
+<!-- متن PURPLE -->
+<text x="140" y="92"
+      fill="url(#textGrad)"
+      font-family="Arial, Helvetica, sans-serif"
+      font-size="54"
+      font-weight="900"
+      letter-spacing="4">PURPLE</text>
+
+<!-- خط زیر متن -->
+<rect x="142" y="110" width="240" height="4" rx="2" fill="#a855f7" opacity="0.85"/>
+</svg>
