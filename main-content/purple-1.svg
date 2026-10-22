@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 160" role="img" aria-labelledby="t d">
+<title id="t">Purple Logo</title>
+<desc id="d">Purple wordmark with a purple crystal gem logo.</desc>
+
+<defs>
+  <!-- گرادیانت پس‌زمینه -->
+  <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#0a0418"/>
+    <stop offset="100%" stop-color="#1a0a30"/>
+  </linearGradient>
+  <!-- گرادیانت متن -->
+  <linearGradient id="textGrad" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0%" stop-color="#d8b4fe"/>
+    <stop offset="50%" stop-color="#a855f7"/>
+    <stop offset="100%" stop-color="#c084fc"/>
+  </linearGradient>
+  <!-- گرادیانت لوگو -->
+  <linearGradient id="gemGrad" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#e9d5ff"/>
+    <stop offset="50%" stop-color="#a855f7"/>
+    <stop offset="100%" stop-color="#6b21a8"/>
+  </linearGradient>
+  <!-- درخشش -->
+  <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+    <feGaussianBlur stdDeviation="6" result="b"/>
+    <feMerge>
+      <feMergeNode in="b"/>
+      <feMergeNode in="SourceGraphic"/>
+    </feMerge>
+  </filter>
+</defs>
+
+<!-- پس‌زمینه -->
+<rect width="480" height="160" rx="24" fill="url(#bgGrad)"/>
+
+<!-- لوگو: الماس/کریستال بنفش -->
+<g transform="translate(60 80)" filter="url(#glow)">
+  <!-- الماس بیرونی -->
+  <polygon points="0,-46 40,-10 0,46 -40,-10"
+           fill="url(#gemGrad)" stroke="#e9d5ff" stroke-width="2" stroke-linejoin="round"/>
+  <!-- خطوط داخلی الماس -->
+  <line x1="-40" y1="-10" x2="40" y2="-10" stroke="#e9d5ff" stroke-width="1.5" opacity="0.7"/>
+  <line x1="0" y1="-46" x2="-18" y2="-10" stroke="#e9d5ff" stroke-width="1.2" opacity="0.5"/>
+  <line x1="0" y1="-46" x2="18" y2="-10" stroke="#e9d5ff" stroke-width="1.2" opacity="0.5"/>
+  <line x1="-18" y1="-10" x2="0" y2="46" stroke="#e9d5ff" stroke-width="1.2" opacity="0.5"/>
+  <line x1="18" y1="-10" x2="0" y2="46" stroke="#e9d5ff" stroke-width="1.2" opacity="0.5"/>
+  <!-- براقی بالا -->
+  <polygon points="0,-46 18,-10 -18,-10" fill="#ffffff" opacity="0.35"/>
+</g>
+
+<!-- متن PURPLE -->
+<text x="130" y="92"
+      fill="url(#textGrad)"
+      font-family="Arial, Helvetica, sans-serif"
+      font-size="54"
+      font-weight="900"
+      letter-spacing="4">PURPLE</text>
+
+<!-- خط زیر متن -->
+<rect x="132" y="110" width="240" height="4" rx="2" fill="#a855f7" opacity="0.85"/>
+</svg>
